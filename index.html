@@ -207,6 +207,17 @@
             font-size: 1.2em;
         }
     </style>
+    <style>
+/* MOBILE PERFECT FIX */
+html, body { height: 100%; overflow-x: hidden; }
+.container { min-height: 100vh; padding-bottom: 100px; }
+.content { min-height: 70vh; overflow-y: auto; max-height: 80vh; }
+.sentence-card { word-break: break-word; max-width: 100%; }
+@media (max-width: 600px) {
+    .quiz-options { grid-template-columns: 1fr !important; }
+    h1 { font-size: 1.8em !important; }
+}
+    </style>
 </head>
 <body>
     <div class="container">
