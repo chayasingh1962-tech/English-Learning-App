@@ -3,104 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning App</title>
+    <title>English Learning App - Hindi</title>
     <meta name="theme-color" content="#667eea">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', sans-serif; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh; color: #333; 
+            min-height: 100vh; color: #333; padding-bottom: 50px;
         }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { text-align: center; color: white; margin-bottom: 30px; font-size: 2em; }
-        .nav-tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 15px; }
+        h1 { text-align: center; color: white; margin-bottom: 25px; font-size: 1.8em; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .nav-tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; gap: 5px; }
         .tab-btn { 
-            background: rgba(255,255,255,0.2); border: none; padding: 12px 20px; 
-            margin: 5px; border-radius: 20px; color: white; cursor: pointer; 
-            transition: all 0.3s; font-size: 14px; 
+            background: rgba(255,255,255,0.2); border: none; padding: 12px 18px; 
+            border-radius: 20px; color: white; cursor: pointer; transition: all 0.3s; 
+            font-size: 14px; min-width: 80px; 
         }
-        .tab-btn:hover, .tab-btn.active { 
-            background: white; color: #333; transform: translateY(-2px); 
-        }
-        .content { display: none; background: rgba(255,255,255,0.95); 
-            border-radius: 15px; padding: 20px; margin-bottom: 20px; 
-        }
+        .tab-btn:hover, .tab-btn.active { background: white; color: #333; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .content { display: none; background: rgba(255,255,255,0.95); border-radius: 15px; padding: 20px; margin-bottom: 20px; backdrop-filter: blur(10px); }
         .content.active { display: block; animation: slideIn 0.5s; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .category { margin-bottom: 20px; padding: 15px; border-radius: 10px; 
-            background: #f8f9ff; border-left: 4px solid #4a90e2; 
-        }
-        .category h3 { color: #2c3e50; margin-bottom: 10px; }
-        .sentence-card { 
-            background: white; margin: 8px 0; padding: 15px; border-radius: 8px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s; 
-        }
-        .sentence-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .english { font-size: 1.2em; font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
-        .hindi { color: #e74c3c; font-size: 1em; margin-bottom: 3px; }
-        .transliteration { color: #7f8c8d; font-size: 0.9em; }
-        button { background: #3498db; color: white; border: none; padding: 10px 20px; 
-            border-radius: 20px; cursor: pointer; margin: 5px; 
-        }
-        button:hover { background: #2980b9; }
+        .category { margin-bottom: 20px; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #f8f9ff, #e8f0fe); border-left: 5px solid; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .category h3 { color: #2c3e50; margin-bottom: 12px; font-size: 1.2em; }
+        .sentence-card { background: white; margin: 8px 0; padding: 15px; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.3s; position: relative; }
+        .sentence-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .english { font-size: 1.15em; font-weight: bold; color: #2c3e50; margin-bottom: 6px; line-height: 1.3; }
+        .hindi { color: #e74c3c; font-size: 1.05em; margin-bottom: 4px; font-weight: 500; }
+        .transliteration { color: #7f8c8d; font-size: 0.9em; font-style: italic; }
+        .play-btn { position: absolute; top: 12px; right: 12px; background: #27ae60; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 14px; }
+        .play-btn:hover { background: #2ecc71; transform: scale(1.1); }
         .quiz-container { text-align: center; }
-        .quiz-question { font-size: 1.3em; margin: 20px 0; color: #2c3e50; }
-        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .quiz-option { padding: 15px; border: 2px solid #ddd; border-radius: 8px; 
-            cursor: pointer; transition: all 0.3s; 
-        }
-        .quiz-option:hover { border-color: #3498db; background: #ecf0f1; }
-        @media (max-width: 600px) {
+        .quiz-question { font-size: 1.4em; margin: 25px 0; color: #2c3e50; padding: 20px; background: #f8f9ff; border-radius: 12px; }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
+        .quiz-option { padding: 18px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-size: 1em; background: white; }
+        .quiz-option:hover { border-color: #3498db; background: #ecf0f1; transform: translateY(-2px); }
+        .quiz-option.correct { background: #d4edda !important; border-color: #28a745 !important; }
+        .quiz-option.wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        button { background: linear-gradient(45deg, #3498db, #2980b9); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-size: 14px; transition: all 0.3s; margin: 8px 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .progress { text-align: center; margin: 15px 0; font-size: 1.1em; color: #2c3e50; }
+        @media (max-width: 700px) {
             .quiz-options { grid-template-columns: 1fr; }
             h1 { font-size: 1.5em; }
             .container { padding: 10px; }
+            .nav-tabs { flex-direction: column; align-items: center; }
+            .tab-btn { width: 200px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 English Learning App</h1>
+        <h1>🎯 English Learning App - 100 Sentences</h1>
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="showTab('learn')">📚 Learn</button>
+            <button class="tab-btn active" onclick="showTab('learn')">📚 Learn (100+)</button>
             <button class="tab-btn" onclick="showTab('quiz')">❓ Quiz</button>
         </div>
         
         <div id="learn" class="content active">
+            <div class="progress" id="progress-text">Loading...</div>
             <div id="categories"></div>
         </div>
         
         <div id="quiz" class="content">
             <div class="quiz-container">
-                <div id="quiz-question"></div>
+                <div class="progress" id="quiz-score">Score: 0/0</div>
+                <div id="quiz-question" class="quiz-question">Click "New Quiz" to start!</div>
                 <div id="quiz-options"></div>
-                <button onclick="nextQuestion()" id="next-btn" style="display:none;">Next</button>
-                <button onclick="startQuiz()">New Quiz</button>
+                <button onclick="nextQuestion()" id="next-btn" style="display:none;">Next Question</button>
+                <button onclick="startQuiz()">🔄 New Quiz (20 Qs)</button>
             </div>
         </div>
     </div>
 
     <script>
+        // ALL 100 SENTENCES - COMPLETE DATA
         const sentences = {
-            "🤝 Greetings": [
+            "🤝 Greetings & Polite Expressions": [
                 {eng: "Hello.", hin: "नमस्ते।", trans: "(Namaste.)"},
                 {eng: "How are you?", hin: "आप कैसे हैं?", trans: "(Aap kaise hain?)"},
                 {eng: "I am fine.", hin: "मैं ठीक हूँ।", trans: "(Main theek hoon.)"},
                 {eng: "What is your name?", hin: "आपका नाम क्या है?", trans: "(Aapka naam kya hai?)"},
-                {eng: "Thank you.", hin: "धन्यवाद।", trans: "(Dhanyawad.)"},
-                {eng: "Please.", hin: "कृपया।", trans: "(Kripya.)"}
+                {eng: "My name is...", hin: "मेरा नाम... है।", trans: "(Mera naam... hai.)"},
+                {eng: "Nice to meet you.", hin: "आपसे मिलकर अच्छा लगा।", trans: "(Aapse milkar achha laga.)"},
+                {eng: "Good morning.", hin: "शुभ प्रभात।", trans: "(Shubh prabhat.)"},
+                {eng: "Good night.", hin: "शुभ रात्रि।", trans: "(Shubh ratri.)"},
+                {eng: "See you later.", hin: "बाद में मिलते हैं।", trans: "(Baad mein milte hain.)"},
+                {eng: "See you tomorrow.", hin: "कल मिलते हैं।", trans: "(Kal milte hain.)"},
+                {eng: "Please.", hin: "कृपया।", trans: "(Kripya.)"},
+                {eng: "Thank you.", hin: "धन्यवाद / शुक्रिया।", trans: "(Dhanyawad / Shukriya.)"},
+                {eng: "You are welcome.", hin: "आपका स्वागत है।", trans: "(Aapka swagat hai.)"},
+                {eng: "Excuse me.", hin: "माफ़ कीजिए।", trans: "(Maaf kijiye.)"},
+                {eng: "I am sorry.", hin: "मुझे खेद है / मुझे माफ़ कर दो।", trans: "(Mujhe maaf kar do.)"},
+                {eng: "No problem.", hin: "कोई बात नहीं।", trans: "(Koi baat nahi.)"},
+                {eng: "It's okay.", hin: "यह ठीक है।", trans: "(Yeh theek hai.)"},
+                {eng: "Can you help me?", hin: "क्या आप मेरी मदद कर सकते हैं?", trans: "(Kya aap meri madad kar sakte hain?)"}
             ],
-            "❓ Questions": [
-                {eng: "What is this?", hin: "यह क्या है?", trans: "(Yeh kya hai?)"},
+            "❓ Asking Questions": [
+                {eng: "What happened?", hin: "क्या हुआ?", trans: "(Kya hua?)"},
                 {eng: "Where are you?", hin: "आप कहाँ हैं?", trans: "(Aap kahan hain?)"},
-                {eng: "How old are you?", hin: "आपकी उम्र क्या है?", trans: "(Aapki umar kya hai?)"}
+                {eng: "Where are you from?", hin: "आप कहाँ से हैं?", trans: "(Aap kahan se hain?)"},
+                {eng: "How old are you?", hin: "आपकी उम्र क्या है?", trans: "(Aapki umar kya hai?)"},
+                {eng: "What do you do?", hin: "आप क्या करते हैं?", trans: "(Aap kya karte hain?)"},
+                {eng: "What time is it?", hin: "कितने बजे हैं?", trans: "(Kitne baje hain?)"},
+                {eng: "Where is the washroom?", hin: "वॉशरूम कहाँ है?", trans: "(Washroom kahan hai?)"},
+                {eng: "How much is this?", hin: "यह कितने का है?", trans: "(Yeh kitne ka hai?)"},
+                {eng: "What is this?", hin: "यह क्या है?", trans: "(Yeh kya hai?)"},
+                {eng: "Why are you crying?", hin: "तुम क्यों रो रहे हो?", trans: "(Tum kyon ro rahe ho?)"},
+                {eng: "Are you sure?", hin: "क्या आपको यकीन है?", trans: "(Kya aapko yakeen hai?)"},
+                {eng: "Do you speak English?", hin: "क्या आप अंग्रेजी बोलते हैं?", trans: "(Kya aap angrezi bolte hain?)"},
+                {eng: "What are you doing?", hin: "तुम क्या कर रहे हो?", trans: "(Tum kya kar rahe ho?)"},
+                {eng: "Who are you?", hin: "तुम कौन हो?", trans: "(Tum kaun ho?)"},
+                {eng: "Are you ready?", hin: "क्या तुम तैयार हो?", trans: "(Kya tum taiyar ho?)"}
             ],
-            "🏠 Daily": [
+            "🏠 Daily Routine & Actions": [
+                {eng: "Wake up.", hin: "उठ जाओ।", trans: "(Uth jao.)"},
+                {eng: "Get ready.", hin: "तैयार हो जाओ।", trans: "(Taiyar ho jao.)"},
                 {eng: "I am hungry.", hin: "मुझे भूख लगी है।", trans: "(Mujhe bhookh lagi hai.)"},
+                {eng: "I am thirsty.", hin: "मुझे प्यास लगी है।", trans: "(Mujhe pyaas lagi hai.)"},
+                {eng: "Let's eat.", hin: "चलो खाते हैं।", trans: "(Chalo khate hain.)"},
+                {eng: "The food is delicious.", hin: "खाना बहुत स्वादिष्ट है।", trans: "(Khana bahut swadisht hai.)"},
+                {eng: "I am going to work.", hin: "मैं काम पर जा रहा हूँ।", trans: "(Main kaam par ja raha hoon.)"},
+                {eng: "I am going home.", hin: "मैं घर जा रहा हूँ।", trans: "(Main ghar ja raha hoon.)"},
                 {eng: "I am tired.", hin: "मैं थका हुआ हूँ।", trans: "(Main thaka hua hoon.)"},
-                {eng: "Good night.", hin: "शुभ रात्रि।", trans: "(Shubh ratri.)"}
+                {eng: "I need some rest.", hin: "मुझे कुछ आराम चाहिए।", trans: "(Mujhe kuch aaram chahiye.)"},
+                {eng: "Go to sleep.", hin: "सो जाओ।", trans: "(So jao.)"},
+                {eng: "I am busy right now.", hin: "मैं अभी व्यस्त हूँ।", trans: "(Main abhi vyast hoon.)"},
+                {eng: "Call me later.", hin: "मुझे बाद में कॉल करना।", trans: "(Mujhe baad mein call karna.)"},
+                {eng: "Wait a minute.", hin: "एक मिनट रुको।", trans: "(Ek minute ruko.)"},
+                {eng: "Hurry up.", hin: "जल्दी करो।", trans: "(Jaldi karo.)"},
+                {eng: "Clean the room.", hin: "कमरा साफ करो।", trans: "(Kamra saaf karo.)"},
+                {eng: "Wash your hands.", hin: "अपने हाथ धो लो।", trans: "(Apne haath dho lo.)"},
+                {eng: "Nothing special.", hin: "कुछ खास नहीं।", trans: "(Kuch khaas nahi.)"},
+                {eng: "I am ready.", hin: "मैं तैयार हूँ।", trans: "(Main taiyar hoon.)"}
+            ],
+            "❤️ Feelings, Thoughts & Opinions": [
+                {eng: "I don't understand.", hin: "मुझे समझ नहीं आ रहा है।", trans: "(Mujhe samajh nahi aa raha hai.)"},
+                {eng: "Could you repeat that?", hin: "क्या आप उसे दोहरा सकते हैं?", trans: "(Kya aap use dohra sakte hain?)"},
+                {eng: "What do you mean?", hin: "आपका क्या मतलब है?", trans: "(Aapka kya matlab hai?)"},
+                {eng: "I like it.", hin: "मुझे यह पसंद है।", trans: "(Mujhe yeh pasand hai.)"},
+                {eng: "I don't like it.", hin: "मुझे यह पसंद नहीं है।", trans: "(Mujhe yeh pasand nahi hai.)"},
+                {eng: "I love you.", hin: "मैं तुमसे प्यार करता हूँ।", trans: "(Main tumse pyaar karta hoon.)"},
+                {eng: "I miss you.", hin: "मुझे तुम्हारी याद आ रही है।", trans: "(Mujhe tumhari yaad aa rahi hai.)"},
+                {eng: "I am happy.", hin: "मैं खुश हूँ।", trans: "(Main khush hoon.)"},
+                {eng: "I am sad.", hin: "मैं उदास हूँ।", trans: "(Main udaas hoon.)"},
+                {eng: "I am angry.", hin: "मैं गुस्से में हूँ।", trans: "(Main gusse mein hoon.)"},
+                {eng: "Don't worry.", hin: "चिंता मत करो।", trans: "(Chinta mat karo.)"},
+                {eng: "Be careful.", hin: "सावधान रहो।", trans: "(Saavdhan raho.)"},
+                {eng: "Calm down.", hin: "शांत हो जाओ।", trans: "(Shaant ho jao.)"},
+                {eng: "Believe me.", hin: "मुझ पर विश्वास करो।", trans: "(Mujh par vishwas karo.)"},
+                {eng: "I don't know.", hin: "मुझे नहीं पता।", trans: "(Mujhe nahi pata.)"},
+                {eng: "I know.", hin: "मुझे पता है।", trans: "(Mujhe pata hai.)"},
+                {eng: "I forgot.", hin: "मैं भूल गया।", trans: "(Main bhool gaya.)"},
+                {eng: "I remember.", hin: "मुझे याद है।", trans: "(Mujhe yaad hai.)"},
+                {eng: "I agree with you.", hin: "मैं आपसे सहमत हूँ।", trans: "(Main aapse sehmat hoon.)"},
+                {eng: "It is true.", hin: "यह सच है।", trans: "(Yeh sach hai.)"},
+                {eng: "It is a lie.", hin: "यह झूठ है।", trans: "(Yeh jhooth hai.)"}
+            ],
+            "🗣️ Commands & Directions": [
+                {eng: "Come here.", hin: "यहाँ आओ।", trans: "(Yahan aao.)"},
+                {eng: "Go there.", hin: "वहाँ जाओ।", trans: "(Wahan jao.)"},
+                {eng: "Listen to me.", hin: "मेरी बात सुनो।", trans: "(Meri baat suno.)"},
+                {eng: "Look at this.", hin: "इसे देखो।", trans: "(Ise dekho.)"},
+                {eng: "Turn on the fan.", hin: "पंखा चालू करो।", trans: "(Pankha chalu karo.)"},
+                {eng: "Turn off the light.", hin: "लाइट बंद कर दो।", trans: "(Light band kar do.)"},
+                {eng: "Open the door.", hin: "दरवाज़ा खोलो।", trans: "(Darwaza kholo.)"},
+                {eng: "Close the window.", hin: "खिड़की बंद कर दो।", trans: "(Khidki band kar do.)"},
+                {eng: "Let's go.", hin: "चलो चलें।", trans: "(Chalo chalein.)"},
+                {eng: "Stop the car.", hin: "गाड़ी रोको।", trans: "(Gaadi roko.)"},
+                {eng: "Walk slowly.", hin: "धीरे चलो।", trans: "(Dheere chalo.)"},
+                {eng: "Speak loudly.", hin: "ज़ोर से बोलो।", trans: "(Zor se bolo.)"},
+                {eng: "Speak softly.", hin: "धीरे बोलो।", trans: "(Dheere bolo.)"},
+                {eng: "Don't shout.", hin: "चिल्लाओ मत।", trans: "(Chillao mat.)"},
+                {eng: "Stop talking.", hin: "बात करना बंद करो।", trans: "(Baat karna band karo.)"},
+                {eng: "Try again.", hin: "फिर से कोशिश करो।", trans: "(Phir se koshish karo.)"},
+                {eng: "Let me go.", hin: "मुझे जाने दो।", trans: "(Mujhe jaane do.)"},
+                {eng: "Let me think.", hin: "मुझे सोचने दो।", trans: "(Mujhe sochne do.)"},
+                {eng: "Bring it here.", hin: "इसे यहाँ लाओ।", trans: "(Ise yahan laao.)"},
+                {eng: "That is enough.", hin: "बस, काफी है।", trans: "(Bas, kaafi hai.)"}
+            ],
+            "🌤️ General / Weather": [
+                {eng: "It is raining.", hin: "बारिश हो रही है।", trans: "(Baarish ho rahi hai.)"},
+                {eng: "It is hot today.", hin: "आज बहुत गर्मी है।", trans: "(Aaj bahut garmi hai.)"},
+                {eng: "It is cold today.", hin: "आज ठंड है।", trans: "(Aaj thand hai.)"},
+                {eng: "Have a good day.", hin: "आपका दिन शुभ हो।", trans: "(Aapka din shubh ho.)"},
+                {eng: "Take care.", hin: "अपना ख्याल रखना।", trans: "(Apna khayal rakhna.)"},
+                {eng: "Drive safely.", hin: "गाड़ी ध्यान से चलाना।", trans: "(Gaadi dhyan se chalana.)"},
+                {eng: "See you soon.", hin: "जल्द ही मिलेंगे।", trans: "(Jald hi milenge.)"}
             ]
         };
+
+        let learned = JSON.parse(localStorage.getItem('learned')) || {};
+        let quizData = [], currentQuiz = 0, quizScore = 0;
 
         function showTab(tab) {
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
@@ -113,44 +207,73 @@
         function loadCategories() {
             const categories = document.getElementById('categories');
             categories.innerHTML = '';
-            Object.keys(sentences).forEach(cat => {
-                const div = document.createElement('div');
-                div.className = 'category';
-                div.innerHTML = `<h3>${cat}</h3>`;
-                sentences[cat].forEach(s => {
+            let total = 0, learnedCount = 0;
+            
+            Object.entries(sentences).forEach(([catName, catSentences]) => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'category';
+                catDiv.style.borderLeftColor = ['#4a90e2', '#f39c12', '#27ae60', '#e74c3c', '#9b59b6', '#1abc9c'][Math.floor(Math.random()*6)];
+                catDiv.innerHTML = `<h3>${catName} (${catSentences.length})</h3>`;
+                
+                catSentences.forEach((s, i) => {
+                    total++;
+                    const key = `${catName}_${i}`;
+                    const learnedStatus = learned[key] ? '✅' : '';
                     const card = document.createElement('div');
                     card.className = 'sentence-card';
                     card.innerHTML = `
+                        <button class="play-btn" onclick="speak('${s.eng}')">🔊</button>
                         <div class="english">${s.eng}</div>
                         <div class="hindi">${s.hin}</div>
-                        <div class="transliteration">${s.trans}</div>
+                        <div class="transliteration">${s.trans} ${learnedStatus}</div>
                     `;
-                    div.appendChild(card);
+                    card.onclick = (e) => {
+                        if(e.target.tagName === 'BUTTON') return;
+                        learned[key] = true;
+                        localStorage.setItem('learned', JSON.stringify(learned));
+                        loadCategories();
+                    };
+                    if(learned[key]) card.style.background = 'linear-gradient(45deg, #d4edda, #c3e6cb)';
+                    catDiv.appendChild(card);
+                    if(learned[key]) learnedCount++;
                 });
-                categories.appendChild(div);
+                categories.appendChild(catDiv);
             });
+            
+            document.getElementById('progress-text').textContent = `Progress: ${learnedCount}/${total} (${Math.round(learnedCount/total*100)}%)`;
         }
 
-        let quizData = [], currentQuiz = 0;
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+
         function startQuiz() {
             quizData = [];
             Object.values(sentences).forEach(cat => quizData.push(...cat));
-            quizData = quizData.sort(() => Math.random() - 0.5).slice(0, 10);
+            quizData = shuffle(quizData).slice(0, 20);
             currentQuiz = 0;
+            quizScore = 0;
+            document.getElementById('quiz-score').textContent = 'Score: 0/20';
             nextQuestion();
         }
 
         function nextQuestion() {
             if(currentQuiz >= quizData.length) {
-                document.getElementById('quiz-question').innerHTML = 'Quiz Complete!';
+                document.getElementById('quiz-question').innerHTML = `<h3>Quiz Complete! 🎉</h3><div style="font-size:1.5em;">${quizScore}/${quizData.length} (${Math.round(quizScore/quizData.length*100)}%)</div>`;
                 document.getElementById('quiz-options').innerHTML = '';
+                document.getElementById('next-btn').style.display = 'none';
                 return;
             }
+            
             const q = quizData[currentQuiz];
-            document.getElementById('quiz-question').innerHTML = q.eng;
+            document.getElementById('quiz-question').innerHTML = `${q.eng} <br><small>Choose correct Hindi:</small>`;
+            
             const options = [q.hin];
-            const wrongs = quizData.filter(s => s.hin !== q.hin).slice(0, 2).map(s => s.hin);
-            options.push(...wrongs.sort(() => Math.random() - 0.5));
+            const allOthers = quizData.filter((s,i) => i !== currentQuiz).map(s => s.hin).slice(0,3);
+            options.push(...shuffle(allOthers));
             
             const optsDiv = document.getElementById('quiz-options');
             optsDiv.innerHTML = '';
@@ -166,15 +289,7 @@
         }
 
         function selectAnswer(selected, correct) {
-            document.querySelectorAll('.quiz-option').forEach(opt => {
-                opt.style.pointerEvents = 'none';
-                if(opt.textContent === correct) opt.style.background = '#d4edda';
-                else if(opt.textContent === selected && selected !== correct) opt.style.background = '#f8d7da';
-            });
-            setTimeout(nextQuestion, 1500);
-        }
-
-        loadCategories();
-    </script>
-</body>
-</html>
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.style.pointerEvents = 'none');
+            let correctFound = false;
+            
+            document.querySelectorAll(
