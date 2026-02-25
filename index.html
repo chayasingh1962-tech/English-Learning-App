@@ -3,38 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning App - Hindi</title>
+    <title>English Learning App</title>
     <meta name="theme-color" content="#667eea">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', sans-serif; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh; color: #333; padding-bottom: 50px;
+            min-height: 100vh; color: #333; 
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 15px; }
-        h1 { text-align: center; color: white; margin-bottom: 25px; font-size: 1.8em; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .nav-tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; gap: 5px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; color: white; margin-bottom: 30px; font-size: 2em; }
+        .nav-tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
         .tab-btn { 
-            background: rgba(255,255,255,0.2); border: none; padding: 12px 18px; 
-            border-radius: 20px; color: white; cursor: pointer; transition: all 0.3s; 
-            font-size: 14px; min-width: 80px; 
+            background: rgba(255,255,255,0.2); border: none; padding: 12px 20px; 
+            margin: 5px; border-radius: 20px; color: white; cursor: pointer; 
+            transition: all 0.3s; font-size: 14px; 
         }
-        .tab-btn:hover, .tab-btn.active { background: white; color: #333; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .content { display: none; background: rgba(255,255,255,0.95); border-radius: 15px; padding: 20px; margin-bottom: 20px; backdrop-filter: blur(10px); }
+        .tab-btn:hover, .tab-btn.active { 
+            background: white; color: #333; transform: translateY(-2px); 
+        }
+        .content { display: none; background: rgba(255,255,255,0.95); 
+            border-radius: 15px; padding: 20px; margin-bottom: 20px; 
+        }
         .content.active { display: block; animation: slideIn 0.5s; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .category { margin-bottom: 20px; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, #f8f9ff, #e8f0fe); border-left: 5px solid; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .category h3 { color: #2c3e50; margin-bottom: 12px; font-size: 1.2em; }
-        .sentence-card { background: white; margin: 8px 0; padding: 15px; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.3s; position: relative; }
-        .sentence-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
-        .english { font-size: 1.15em; font-weight: bold; color: #2c3e50; margin-bottom: 6px; line-height: 1.3; }
-        .hindi { color: #e74c3c; font-size: 1.05em; margin-bottom: 4px; font-weight: 500; }
-        .transliteration { color: #7f8c8d; font-size: 0.9em; font-style: italic; }
-        .play-btn { position: absolute; top: 12px; right: 12px; background: #27ae60; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 14px; }
-        .play-btn:hover { background: #2ecc71; transform: scale(1.1); }
+        .category { margin-bottom: 20px; padding: 15px; border-radius: 10px; 
+            background: #f8f9ff; border-left: 4px solid #4a90e2; 
+        }
+        .category h3 { color: #2c3e50; margin-bottom: 10px; }
+        .sentence-card { 
+            background: white; margin: 8px 0; padding: 15px; border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s; 
+        }
+        .sentence-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .english { font-size: 1.2em; font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
+        .hindi { color: #e74c3c; font-size: 1em; margin-bottom: 3px; }
+        .transliteration { color: #7f8c8d; font-size: 0.9em; }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; 
+            border-radius: 20px; cursor: pointer; margin: 5px; 
+        }
+        button:hover { background: #2980b9; }
         .quiz-container { text-align: center; }
-        .quiz-question { font-size: 1.4em; margin: 25px 0; color: #2c3e50; padding: 20px; background: #f8f9ff; border-radius: 12px; }
+        .quiz-question { font-size: 1.3em; margin: 20px 0; color: #2c3e50; }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .quiz-option { padding: 15px; border: 2px solid #ddd; border-radius: 8px; 
+            cursor: pointer; transition: all 0.3s; 
+        }
+        .quiz-option:hover { border-color: #3498db; background: #ecf0f1; }
+        @media (max-width: 600px) {
+            .quiz-options { grid-template-columns: 1fr; }
+            h1 { font-size: 1.5em; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 English Learning App</h1>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('learn')">📚 Learn</button>
+            <button class="tab-btn" onclick="showTab('quiz')">❓ Quiz</button>
+        </div>
+        
+        <div id="learn" class="content active">
+            <div id="categories"></div>
+        </div>
+        
+        <div id="quiz" class="content">
+            <div class="quiz-container">
+                <div id="quiz-question"></div>
+                <div id="quiz-options"></div>
+                <button onclick="nextQuestion()" id="next-btn" style="display:none;">Next</button>
+                <button onclick="startQuiz()">New Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sentences = {
+            "🤝 Greetings": [
+                {eng: "Hello.", hin: "नमस्ते।", trans: "(Namaste.)"},
+                {eng: "How are you?", hin: "आप कैसे हैं?", trans: "(Aap kaise hain?)"},
+                {eng: "I am fine.", hin: "मैं ठीक हूँ।", trans: "(Main theek hoon.)"},
+                {eng: "What is your name?", hin: "आपका नाम क्या है?", trans: "(Aapka naam kya hai?)"},
+                {eng: "Thank you.", hin: "धन्यवाद।", trans: "(Dhanyawad.)"},
+                {eng: "Please.", hin: "कृपया।", trans: "(Kripya.)"}
+            ],
+            "❓ Questions": [
+                {eng: "What is this?", hin: "यह क्या है?", trans: "(Yeh kya hai?)"},
+                {eng: "Where are you?", hin: "आप कहाँ हैं?", trans: "(Aap kahan hain?)"},
+                {eng: "How old are you?", hin: "आपकी उम्र क्या है?", trans: "(Aapki umar kya hai?)"}
+            ],
+            "🏠 Daily": [
+                {eng: "I am hungry.", hin: "मुझे भूख लगी है।", trans: "(Mujhe bhookh lagi hai.)"},
+                {eng: "I am tired.", hin: "मैं थका हुआ हूँ।", trans: "(Main thaka hua hoon.)"},
+                {eng: "Good night.", hin: "शुभ रात्रि।", trans: "(Shubh ratri.)"}
+            ]
+        };
+
+        function showTab(tab) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+            if(tab === 'learn') loadCategories();
+        }
+
+        function loadCategories() {
+            const categories = document.getElementById('categories');
+            categories.innerHTML = '';
+            Object.keys(sentences).forEach(cat => {
+                const div = document.createElement('div');
+                div.className = 'category';
+                div.innerHTML = `<h3>${cat}</h3>`;
+                sentences[cat].forEach(s => {
+                    const card = document.createElement('div');
+                    card.className = 'sentence-card';
+                    card.innerHTML = `
+                        <div class="english">${s.eng}</div>
+                        <div class="hindi">${s.hin}</div>
+                        <div class="transliteration">${s.trans}</div>
+                    `;
+                    div.appendChild(card);
+                });
+                categories.appendChild(div);
+            });
+        }
+
+        let quizData = [], currentQuiz = 0;
+        function startQuiz() {
+            quizData = [];
+            Object.values(sentences).forEach(cat => quizData.push(...cat));
+            quizData = quizData.sort(() => Math.random() - 0.5).slice(0, 10);
+            currentQuiz = 0;
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if(currentQuiz >= quizData.length) {
+                document.getElementById('quiz-question').innerHTML = 'Quiz Complete!';
+                document.getElementById('quiz-options').innerHTML = '';
+                return;
+            }
+            const q = quizData[currentQuiz];
+            document.getElementById('quiz-question').innerHTML = q.eng;
+            const options = [q.hin];
+            const wrongs = quizData.filter(s => s.hin !== q.hin).slice(0, 2).map(s => s.hin);
+            options.push(...wrongs.sort(() => Math.random() - 0.5));
+            
+            const optsDiv = document.getElementById('quiz-options');
+            optsDiv.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => selectAnswer(opt, q.hin);
+                optsDiv.appendChild(btn);
+            });
+            document.getElementById('next-btn').style.display = 'none';
+            currentQuiz++;
+        }
+
+        function selectAnswer(selected, correct) {
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if(opt.textContent === correct) opt.style.background = '#d4edda';
+                else if(opt.textContent === selected && selected !== correct) opt.style.background = '#f8d7da';
+            });
+            setTimeout(nextQuestion, 1500);
+        }
+
+        loadCategories();
+    </script>
+</body>
+</html>        .quiz-question { font-size: 1.4em; margin: 25px 0; color: #2c3e50; padding: 20px; background: #f8f9ff; border-radius: 12px; }
         .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
         .quiz-option { padding: 18px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-size: 1em; background: white; }
         .quiz-option:hover { border-color: #3498db; background: #ecf0f1; transform: translateY(-2px); }
